@@ -1,0 +1,3 @@
+#! /usr/bin/env bash
+npx antora --fetch local-playbook.yml
+cp css/wide-site.css public/_/css/

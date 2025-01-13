@@ -1,0 +1,12 @@
+body.wide-site .doc
+{
+
+    max-width: 80rem;  /* Changing this to 'none' widens the page */
+}
+
+@media screen and (min-width:1024px)
+{
+    body.wide-site .doc{
+    max-width: 85rem; /* Changing this to 'none' widens the page */
+}
+}

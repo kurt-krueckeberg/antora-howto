@@ -1,0 +1,23 @@
+= Trigger Gitlab Pipeline Jobs
+
+For idea on how to get pushes to my `gitlab/krueckeberg/adoc-genelaogy` repo to trigger the `.gitlab-cli.yml` pipline/`job, see:
+
+- https://docs.gitlab.com/ee/topics/build_your_application.html[Use CI/CD to build your application ]
+
+It includes the topic of pipelines:
+
+- https://docs.gitlab.com/ee/ci/pipelines/[Pipelines]
+
+and jobs:
+
+- https://docs.gitlab.com/ee/ci/jobs/[Jobs]
+
+How to trigger pipelines:
+
+This stackoverflow post has two diferent ideas in it:
+- https://stackoverflow.com/questions/62325154/is-it-possible-to-have-gitlab-ci-trigger-another-pipeline
+
+
+See these Gitlab CI topics:
+- https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html[Downstream pipelines]
+- https://docs.gitlab.com/ee/ci/triggers/[CI Triggers]

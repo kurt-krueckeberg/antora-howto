@@ -1,0 +1,20 @@
+= Important Antora (and Asciidoctor) Extensions
+
+The following two important Asciidoctor extensions are described in their Github README files.
+
+== Antora lunr Search Extension
+
+link:github.com/ggrossetie/antora-site-generator-lunr[Anotra Lunr Extension]
+
+== Antora PDF Extension
+
+The Antora PDF extension uses **Asciidoctor PDF 2** to generate PDF files. This allows you to generate
+PDF version of you Antora sites' pages.
+
+See link:https://gitlab.com/antora/antora-assembler/-/blob/main/README.adoc[Antora Assembler] for details on
+installing the PDF extension.
+
+== Asciidoctor Bibtex
+
+The Asciidoctor Bibtex extension provide true Bibtex support through new Asciidoc macros. The extension is easy to install
+as link:https://github.com/asciidoctor/asciidoctor-bibtex[Asciidoctor Bibtex documentation] explains.

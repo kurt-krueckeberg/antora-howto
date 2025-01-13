@@ -1,0 +1,5 @@
+= Tips on Using Antora
+
+Some tips I encourntered:
+
+* link:https://blog.anoff.io/2019-05-14-antora-navigation-files/[Composing navigation files in Antora using the include macro]

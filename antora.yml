@@ -1,0 +1,12 @@
+name: antora-howto
+title: Using Antora for Documentation
+version: 'latest'
+# display_version: default
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    xrefstyle: short@
+    listing-caption: Example@
+nav:
+  - modules/ROOT/nav-top.adoc
+  - modules/ui/nav.adoc

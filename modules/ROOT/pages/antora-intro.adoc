@@ -1,0 +1,11 @@
+== Antora Overview
+
+The minimun folders and files required in an Antora repository are:
+
+* An `antora.yml` file located at the content source root
+
+* A `modules` directory located at the same hierarchical level as an `antora.yml` file
+
+* At least one module directory in the `modules` directory
+
+* At least one family directory (like `pages`) containing at least one source file in the module directory

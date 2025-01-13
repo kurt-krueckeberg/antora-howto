@@ -1,0 +1,45 @@
+= Resource IDs
+
+A resource is a source file that belongs to the pages, images, partials, examples, or attachments family.
+Antora assigns each resource a unique identifier called an Antora resource ID
+
+For details, see link:https://docs.antora.org/antora/latest/page/resource-id/[Resouces and Resource IDs].
+
+== Referencing Pages
+
+t’s the same way for page IDs. If you want to reference a page stored in the same module as the current page, which is most often the case, you only need to specify the filename of the other page.
+
+[,asciidoc]
+----
+xref:page-in-same-module.adoc[link text]
+----
+
+If you want to reference a page in a different module, you only need to specify the module and filename of the other page:
+
+[,asciidoc]
+----
+xref:sibling-module:page.adoc[link text]
+----
+
+To reference another version of a page in the same module, just prepend the version number to the filename.
+
+[,asciidoc]
+----
+xref:1.1@page.adoc[link text]
+----
+
+You only have to use the full page ID when you need to refer to a page that belongs to another component.
+
+[,asciidoc]
+----
+xref:2.1@other-component:module:page.adoc[link text]
+----
+
+See also link:https://opendevise.com/blog/referencing-pages/[Referencing Pages ]
+
+== Referencing Resource id Coordiantes
+
+See link:https://docs.antora.org/antora/latest/page/resource-id-coordinates[Resource Id Coordinates]
+
+
+

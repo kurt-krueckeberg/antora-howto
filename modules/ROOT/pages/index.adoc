@@ -1,0 +1,10 @@
+= Overview
+
+This site is quick how-to on guide on how to get up and running with https://docs.antora.org[Antora]. It gives you
+
+* Have a basic understanding of how to set up Antora
+* An overview of its folder structure and control files
+* A practical example of building site navigation.
+
+The https://docs.antora.org[Antora Documentation site] and the https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc Documentation site]
+were consulted to create this documentation along with a stackoverflow post.

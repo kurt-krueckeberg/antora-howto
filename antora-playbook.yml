@@ -1,0 +1,27 @@
+site:
+  title: Antora Setup and Hosted on Gitlab Pages 
+  # the 404 page and sitemap files only get generated when the url property is set
+  url: https://krueckeberg.gitlab.io/antora-howto
+  start_page: antora-howto::index.adoc
+content:
+  sources:
+    - url: git@gitlab.com:krueckeberg/antora-howto.git 
+      branches: main
+      # start_path: docs
+      # setting edit_url to false disables the Edit this Page link for any page that originates from this repository
+      # the same thing can be achieved by adding empty credentials (i.e., @) in front of the domain in the URL
+      edit_url: false
+asciidoc:
+  attributes:
+    experimental: ""
+    idprefix: ""
+    idseparator: "-"
+    page-pagination: ""
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+# I copied these last two lines from https://gitlab.com/antora/docs.antora.org/-/blob/main/antora-playbook.yml
+# because Gitlab Pages requires your static site's build process output files to be in a folder call "public".
+output:
+  dir: ./public

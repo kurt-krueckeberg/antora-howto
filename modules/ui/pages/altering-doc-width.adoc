@@ -1,0 +1,81 @@
+= Altering the Document's Width Setting
+
+== CSS Page Width
+
+According to link:https://stackoverflow.com/questions/65398110/antora-supplemental-ui-removing-max-width-from-doc-in-doc-css[Antora supplemental-ui removing max-width from doc in doc.css],
+changing these portions or sections of the generated CSS file **public/_/css/site.css**:
+
+[,css]
+----
+.doc {
+  color:#333;
+  font-size:inherit;
+  -webkit-hyphens:auto;
+  -ms-hyphens:auto;
+  hyphens:auto;
+  line-height:1.6;
+  margin:0 auto;
+  max-width:40rem; /* <-- Before change: 40rem */
+  padding:0 1rem 4rem
+}
+----
+
+[,css]
+----
+@media screen and (min-width:1024px) {
+  .doc {
+  -webkit-box-flex:1;
+  -ms-flex:auto;
+  flex:auto;
+  font-size:.94444rem;
+  margin:0 2rem;
+  max-width:46rem; /* <-- Before change: 46rem */
+  min-width:0
+}
+----
+
+This bit of CSS will increase the width of the pages to the maximum size:
+
+[,css]
+----
+.doc
+{
+    color:#333;
+    font-size:inherit;
+    -webkit-hyphens:auto;
+    -ms-hyphens:auto;
+    hyphens:auto;
+    line-height:1.6;
+    margin:0 auto;
+    max-width: 80rem;  /* After change: 80rem */
+    padding:0 1rem 4rem
+}
+
+@media screen and (min-width:1024px)
+{
+    .doc {-webkit-box-flex:1;
+    -ms-flex:auto;
+    flex:auto;
+    font-size:.94444rem;
+    margin:0 2rem;
+    max-width: 85rem; /* After change: 85rem */
+    min-width:0
+    }
+}
+----
+
+If you want the maximum page width allowed by the screen size, change `max-width` in those snippets above to `none`:
+
+[.css]
+----
+.doc {
+    max-width: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .doc {
+        max-width: none;
+    }
+}
+----
+

@@ -1,0 +1,97 @@
+= Navigation Files and Lists
+:source-highlighter: highlight.js
+
+== What’s a navigation file?
+A navigation file is one or more lists of page cross references, external URLs, and other content that is marked up in AsciiDoc and stored at the base of a module directory. If registered in an antora.yml file, the contents of the navigation file will be incorporated into a component version page menu and published to a site.
+
+=== Filename and format
+
+Navigation files must end with the AsciiDoc file extension (.adoc). They’re typically named nav.adoc; however, you can use any name that is meaningful to you. Name your navigation files kaboom.adoc if that makes your team happy.
+
+== List structure
+
+A navigation list is an unordered AsciiDoc list. Each top-level list item can nested items up to level five (`*****`).
+
+.Example 1. Single list structure
+
+[, asciidoc]
+----
+* Top level item
+** Second level item 
+*** Third level item
+*** Third level item
+** Second level item
+*** Third level item
+**** Fourth level item
+***** Fifth level item
+* Top level item
+* Top level item
+----
+
+The navigation file above produces this navigation structure:
+
+image:nav-example.png[Example 1. navigation screen print]
+
+A top-level list item is a list title, which is denoted by a dot (.), or, when there isn’t a list title, each list item that’s marked by a single
+asterisk (*). When a file contains multiple lists, each list must be initiated with a list title.
+
+.Example 2. Multiple list structure
+
+[, adoc]
+----
+.List title and top level item
+* List item
+
+.aList title and top level item
+* List item
+** List item
+----
+
+If a navigation file only contains one list, a list title is optional. In a single list navigation file, each item with a single asterisk marker
+(*) effectively becomes a top-level item.
+
+You can compose your navigation by combining files using the include directive. Each included file must be located in a partials directory. If
+you want the navigation list in the included file to be added as a child of the current item, you should enclose the include directive in an open
+block. See Compose Navigation Files to learn how to create a navigation list using multiple files and include directives.
+
+== List titles and items
+
+List titles and items in a navigation file can contain several types of content, such as cross references to pages, links to external sites, and regular and formatted text. The most common items in a navigation file are xrefs to pages that belong to the same component version and module, but a target resource ID can be for pages in other modules and components, too.
+
+[source, asciidoc]
+----
+.The Special Project 
+* xref:index.adoc[] 
+** xref:ROOT:get-started.adoc[] 
+//** xref:team::contributing.adoc[] 
+
+._Support_ 
+* https://support.project.com[Get Help] 
+* xref:help.adoc[*Troubleshooting*] 
+----
+
+.Analysis of Navigation
+[%autowidth]
+|===
+|Entry |Meaning
+
+| `.The Special Project`, 
+|Regular, unlinked text.
+
+|`* xref:index.adoc[]`
+| top-level menu whose text is from the H1 header in `index.adoc` 
+
+|`** xref:team::contributing.adoc[]` 
+| second level menu from the `contributing.adoc` file in the `team` module, whose text is the H1 header.
+
+|===
+
+Xref to a page that belongs to the same module as the navigation file. Antora will apply the target page’s default navigation link text when the site is generated.
+Xref to a page that doesn’t belong to the same module as the navigation file.
+Xref to a page that doesn’t belong to the same component as the navigation file.
+Unlinked text with inline formatting.
+Link to an external website.
+Xref with formatted link text.
+List items can reference attachments, too.
+
+

@@ -1,0 +1,9 @@
+= Publish on Gitlab Pages
+
+You can automatically publish your Antora site on Gitlab by creating a custom `.gitlab-ci.yml`
+and by tweaking `antora.yml` and `antora-playbook.yml`. These alterations are described 
+in
+
+* xref:gitlab-pages-steps.adoc[] and in
+* xref:trigger-pipeline-jobs.adoc[]
+

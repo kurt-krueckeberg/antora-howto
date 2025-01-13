@@ -1,0 +1,10 @@
+= Page Layout
+
+== Override Default Layout
+
+To override the default page layout, see link:https://docs.antora.org/antora/latest/playbook/ui-default-layout/[Default Layout for Pages].
+
+== Using the `:page-layout:` key
+
+See link:https://docs.antora.org/antora/latest/page/page-layout/[Assign UI Templates with page-layout]. This appear to require a custom
+UI bundle. See information about link:https://docs.antora.org/antora-ui-default/templates[Handlebar Templates].

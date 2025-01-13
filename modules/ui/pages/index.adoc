@@ -1,0 +1,14 @@
+= Changing the User Interface
+
+This information comes from
+
+
+[arablic]
+. The **stackoverflow** question:
+
++
+
+link:https://stackoverflow.com/questions/65398110/antora-supplemental-ui-removing-max-width-from-doc-in-doc-css[Antora supplemental-ui removing max-width from doc in doc.css]
+. relevant portions of the Antora documentation.
+
+It warrants a careful reading.

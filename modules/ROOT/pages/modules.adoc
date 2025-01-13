@@ -1,0 +1,55 @@
+= Modules
+
+See this excellent introduction to what https://opendevise.com/blog/standard-project-structure-for-docs/[modules are].
+
+== Overview of Folder Structure
+
+The minimun folders and files required in an Antora repository are:
+
+* An `antora.yml` file located at the content source root
+
+* A `modules` directory located at the same hierarchical level as an `antora.yml` file
+
+* At least one module directory in the `modules` directory
+
+* At least one family directory (like `pages`) containing at least one source file in the module directory
+
+== modules Folder
+
+There are two types of module directories: named module directories and the `ROOT` module directory (which be written in uppercase). At runtime, Antora
+collects the source files stored in the `ROOT` and named module directories and assigns them to modules. By convention, the module name corresponds to
+the name of the module folder, and a module serves primarily as an organizational convienence for the writer to separate content by concept.
+
+All module names except ROOT are included in a segment of the URL of their pages.
+
+A `ROOT` module is recommended because Antora assigns present behavior to the publishable resources in a ROOT module. For example, the
+`ROOT/pages/index.adoc` becomes the default start page for a component version. The ROOT module is considered the top-level module. This is why _ROOT_ 
+does not get appear as a path segement in any URLs of the genearated site. "ROOT" servers as an alias for a blank module name. 
+
+Small documentation project may never need more thant a _ROOT_ folder. As mentioned, the name `ROOT` never appears in any of the published site's URLs.
+Because ROOT is considered the the top-level module. It generally does not contain topic folders.
+
+== How Modules Function
+
+=== Recommendations for Module Directory Names
+
+When choosing a module folder name, keep the following requirements and recommendations in mind:
+
+* Named module directories can’t contain blank spaces or forward slashes (/). These characters aren’t permitted in the targets of
+  AsciiDoc cross references, image macros, or include directives.
+
+* If possible, don’t use uppercase letters, underscores (_), and other characters that aren’t recommended in URLs. Such characters
+  can limit web server portability, downgrade site search results, and cause visitor accessibility problems.
+
+* If your team often references resources across modules, they’ll have to type a module’s name in the resource IDs, so don’t make
+  the folder name, and hence the module name, too long or hard to remember. Good module names are short and descriptive.
+
+Module names: Resume https://docs.antora.org/antora/latest/module-directory-names/[here].
+
+=== Module Segment in Page URLs
+
+When a ROOT module’s pages are published to a site, they become the top-level pages of their assigned component version.
+That means the module name, ROOT, never appears in the page’s URL. A `deploy.adoc` located `ROOT/pages` in the `hyper lemur` component
+(components occur in the content source's urls in the playbook file) would have this URL:
+
+image::root-page-url.svg[]

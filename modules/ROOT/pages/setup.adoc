@@ -1,0 +1,110 @@
+= Antora Setup
+
+== A Step-by-step Antora Local Installation Guide
+//:source-highlighter: highlight.js
+
+Create a subdirectory
+
+[,bash]
+----
+$ mkdir new-docs-site
+----
+
+and install Antora locally within it
+
+[,bash]
+----
+$ node -e "fs.writeFileSync('package.json', '{}')"
+$ npm i -D -E @antora/cli@3.1 @antora/site-generator@3.1
+----
+
+Next, verify the installation:
+
+[,bash]
+----
+$ npx antora -v
+----
+
+== Install Any Antora Extensions
+
+After installing Antora, you have to install any Antora extensions separetely; for example, the https://gitlab.com/antora/antora-lunr-extension[lunr extension]) would
+be installed like this: 
+
+[source, bash]
+----
+$ npm i @antora/lunr-extension
+$ npm i @antora/pdf-extension
+----
+
+Add the extensions to the `antora.yml` file:
+
+[source, yaml]
+----
+antora:
+  extensions:
+  - '@antora/pdf-extension'
+  - require: '@antora/lunr-extension'
+----
+
+How to use the lunr extension is explained in its https://gitlab.com/antora/antora-lunr-extension[repo readme].
+
+=== The PDF Extension
+
+For instructions on installing the PDF extension, see the https://gitlab.com/antora/antora-assembler[Antora Assembler] extension.
+
+== Create a Antora Playbook
+
+Create a basic playbook YAML. This is the https://gitlab.com/antora/demo[Antora Demo] example 
+
+[source,yaml]
+----
+site:
+  title: Antora Demo Site
+  # the 404 page and sitemap files only get generated when the url property is set
+  url: https://antora.gitlab.io/demo/docs-site
+  start_page: component-b::index.adoc
+content:
+  sources:
+  - url: https://gitlab.com/antora/demo/demo-component-a.git
+    branches: HEAD
+    # setting edit_url to false disables the Edit this Page link for any page that originates from this repository
+    # the same thing can be achieved by adding empty credentials (i.e., @) in front of the domain in the URL
+    edit_url: false
+  - url: https://gitlab.com/antora/demo/demo-component-b.git
+    branches: [main, v2.0, v1.0]
+    start_path: docs
+asciidoc:
+  attributes:
+    experimental: ''
+    idprefix: ''
+    idseparator: '-'
+    page-pagination: ''
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+----
+
+`component-b::index.adoc` is the  https://docs.antora.org/antora/latest/page/resource-id/[resource-id] name used
+to distinguish it from the **index.adoc** in **component-b**. For more details, refer to https://docs.antora.org/antora/latest/page/resource-id-coordinates/[Resource ID Coordinates].
+
+To build your set, run Antora as follows:
+
+[,bash]
+----
+$ npx antora --fetch antora-playbook.yml
+----
+
+== Default Source Code Highlighter
+
+Currently, only one source code highlighter is supported in the defaul, reference user interface, namely, `highlight.js`. It is enabled site-wide
+by default.
+
+When you want to highlight Asciidoc files, you don't need to sepcify the source code highligher like this
+
+[source,asciidoc]
+----
+:source-highlighter: highlight.js
+----
+
+This is unlike stand-alone Asciidoc files compiled into html using Asciidoctor.

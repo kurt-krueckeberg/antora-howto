@@ -1,0 +1,230 @@
+= Understanding Antora Navigation
+
+Antora naviagation is not built automatically; you must create navigation `.adoc` file(s). To do this, it is important first 
+to understand Antora's modules folder and the related subfolder families. Complete details are in the https://docs.antora.org[Antora documentation].
+
+After this overview, we can look at the basics of navigation files and then at an examples of actual Antora websites.
+
+`antora.yml` is in the top directory of the repository that holds the `.adoc` content files of the website. Antora requires a particular directory
+with subfolders with particular names. There is a top-level `modules` folder that contains one or more folders conceptually termed `components`. In the case of the
+Asciidoc documentation, the folders under `moduels/` are: 
+
+```bash
+attributes
+blocks
+components-in-antora-yml.txt
+directives
+docinfo
+document
+lists
+macros
+pass
+ROOT
+sections
+stem
+subs
+tables
+text
+toc
+verbatim
+```
+
+These folders under modules are termed components of the documentation. It is recommended that you create the optional `ROOT` comonent directory to take
+advantage of preset default behavoir applied to it.
+
+== Family Directories 
+
+The family directories are: attachments/, examples/, images/, pages/, partials/.
+
+In the Antora project for the  https://docs.asciidoctor.org/asciidoc/latest/[Asciidoc] documentation, for example, there are 25 `nav*.doc` entries in
+`antora.yml` file and each of the 16 components (subfolders of modules) are represented with at least one entry:
+
+```yml
+nav:
+- modules/ROOT/nav-top.adoc
+- modules/blocks/nav-basics.adoc
+- modules/attributes/nav-document.adoc
+- modules/attributes/nav-element.adoc
+- modules/document/nav.adoc
+- modules/sections/nav.adoc
+- modules/blocks/nav-paragraph.adoc
+- modules/blocks/nav-discrete-headings.adoc
+- modules/blocks/nav-breaks.adoc
+- modules/text/nav.adoc
+- modules/lists/nav.adoc
+- modules/macros/nav.adoc
+- modules/blocks/nav-styles.adoc
+- modules/verbatim/nav.adoc
+- modules/tables/nav.adoc
+- modules/stem/nav.adoc
+- modules/blocks/nav-open.adoc
+- modules/blocks/nav-collapsible.adoc
+- modules/ROOT/nav-comment.adoc
+- modules/toc/nav.adoc
+- modules/docinfo/nav.adoc
+- modules/directives/nav.adoc
+- modules/subs/nav.adoc
+- modules/pass/nav.adoc
+- modules/attributes/nav-ref.adoc
+```
+
+Some component/folder occur more than once as shown below:
+
+```bash
+  3 attributes
+  7 blocks
+  1 directives
+  1 docinfo
+  1 document
+  1 lists
+  1 macros
+  1 pass
+  2 ROOT
+  1 sections
+  1 stem
+  1 subs
+  1 tables
+  1 text
+  1 toc
+  1 verbatim
+```
+
+== Basic of Navigation and Navigation Files
+
+Antora's https://docs.antora.org/antora/latest/navigation/[Navigation Assembly] explains that 
+
+----
+Each component (each component version to be precise) requires navigation
+files that are stored along with its source files.
+
+Strictly speaking the navigation for a compoent (component version) doesn't
+have to be in that modules folder, but this is a common practice. Furthermore,
+the navigation for the component can be made up of more than one `.adoc` file.
+----
+
+The navigatoin files is defined thus:
+
+----
+A navigation file contains one or more bulleted lists. Each item in a list can
+be the cross reference to a page, URL to a website that isn’t part of the site,
+or unlinked text such as a category title that groups a nested set of list items.
+You can compose the navigation from multiple files.
+in other modules and components, too. Here are examples:
+----
+
+The navigation files are unordered lists in `.adoc` files, usually named starting with
+`nav` but can be named anything. The top level items action as the top-level menu
+text. The most common items in a navigation file are `xrefs`` to pages that belong
+to the same component version and module, but a target resource ID can be for pages.
+
+Unordered lists they can have titles that are introducted with a line that begins with a `.`
+In a navigation unordered list such text is simply not clickable or actionable.
+
+```adoc
+._Support_
+* https://support.project.com[Get Help]
+* xref:help.adoc[*Troubleshooting*]
+
+.Kizmet's Favorite Authors
+* Edgar Allan Poe
+* Sheri S. Tepper
+* Bill Bryson
+```
+
+`.Understanding Geneaolgy Research` is unlinked text that appears as top-leve navigation text. It becomes a collapsibile menu with one
+item, whose text is the H1 header in `index.adoc`. Under this top-level collapsible menu are two text choices whose text 
+also comes from the H1 text in the specified `.adoc` files. 
+
+If the navigation file had been:
+
+```adoc
+.Understanding Geneaolgy Research
+* xref:antora-intro.adoc[]
+** xref:ui-antora.adoc[]
+```
+
+their would be a second, nested collapsible menu.
+
+Taking the H1 headers as the menu text occurs when no link text is specifed as in `* xref:antora-intro.adoc[]`.
+
+Continue reading https://docs.antora.org/antora/latest/navigation/single-list/[here].
+
+== Analysis of Navigation for Two Real Sites
+
+In the navigation for the site, the main, top-level entries come from first navigation entry in antora.yml navigation `moduelses/ROOT/nav-top.adoc`:
+
+Below is the navigation for Asciidoc documentation site
+image:asciidoc-navigation.jpg[Asciidoc Navigation]
+
+which has this content:
+
+```adoc
+* Introduction
+** xref:document-structure.adoc[]
+** xref:key-concepts.adoc[]
+** xref:document-processing.adoc[]
+** xref:normalization.adoc[]
+```
+
+**Introduction** is the text of the first menu item, which is collapsible with four sub menu items. This appearance comes from the 
+unordered lists in `ROOT/nav-top.adoc`:
+
+```adoc
+* Introduction
+** xref:document-structure.adoc[]
+** xref:key-concepts.adoc[]
+** xref:document-processing.adoc[]
+** xref:normalization.adoc[]
+```
+
+where unordered list of one item has a nested unordered list of four items. The menu item of the four submenu items comes from the h1-level header
+in the cross reference `.adoc` files, which are in their components `pages` subfolder. Here are those entries for the files above:
+
+```adoc
+= Document Structure
+= Key Concepts
+= Document Processing
+= Normalization
+```
+
+So we see menu item text can come from either text in a navigation `.adoc` file or from the first line, the h1 header `= ...`, in the cross referenced
+`.adoc` file within the navigaton file. 
+
+Recall that `.adoc` files that are not navigation must reside in a `pages/` folder as do the cross referenced files above.
+
+=== Digging Deeper
+
+The next menu item `Blocks` likewise is collapsibile. It is created in exactly like `ROOT/nav-top.adoc` above. The `nav-basics.adoc` file in the
+`blocks` component
+
+```adoc
+* xref:index.adoc[]
+** xref:delimited.adoc[]
+** xref:build-basic-block.adoc[]
+** xref:add-title.adoc[]
+** xref:assign-id.adoc[]
+** xref:masquerading.adoc[]
+** xref:troubleshoot-blocks.adoc[]
+```
+
+is the same except the first entry is the text of an unordered list item but instead a cross reference. All the file above come from the `modules/block/pages` folder.
+There top level headers are:
+
+```adoc
+= Blocks
+= Delimited Blocks
+= Document Title
+= Build a Basic Block
+= Add a Title to a Block
+= Assign an ID
+= Block Masquerading
+= Troubleshooting Blocks
+```
+
+todo: display Blocks menu item
+
+which comprise the `Blocks` drop down and its nested items. However, the `blocks` component folder has other naviation files, which are listed later in 
+the `antora.yml` file. Thus, a component may have more than one naviation `.adoc` file that controls later sections of the site's naviation. Take, for
+example, the `Paragraphs` menu:
+
+todo: display Paragraphs menu item

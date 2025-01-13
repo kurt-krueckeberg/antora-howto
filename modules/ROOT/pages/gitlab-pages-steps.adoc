@@ -1,0 +1,77 @@
+= Gitlab Pages Steps to Follow 
+
+. Make sure your `antora.yml` file has a version of **latest**, for example:
+
+```yml
+name: antora-howto
+title: Using Antora for Documentation
+version: 'latest'
+# display_version: default
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    xrefstyle: short@
+    listing-caption: Example@
+nav:
+  - modules/ROOT/nav-top.adoc
+  - modules/ui/nav.adoc
+```
+
+[start=2]
+. Create a `antora-playbook.yml` like, for example, this one:
+
+```yml
+site:
+  title: Antora Setup and Hosted on Gitlab Pages 
+  # the 404 page and sitemap files only get generated when the url property is set
+  url: https://krueckeberg.gitlab.io/antora-howto
+  start_page: antora-howto::index.adoc
+content:
+  sources:
+    - url: git@gitlab.com:krueckeberg/antora-howto.git 
+      branches: main
+      # start_path: docs
+      # setting edit_url to false disables the Edit this Page link for any page that originates from this repository
+      # the same thing can be achieved by adding empty credentials (i.e., @) in front of the domain in the URL
+      edit_url: false
+asciidoc:
+  attributes:
+    experimental: ""
+    idprefix: ""
+    idseparator: "-"
+    page-pagination: ""
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+# I copied these last two lines from https://gitlab.com/antora/docs.antora.org/-/blob/main/antora-playbook.yml
+# because Gitlab Pages requires your static site's build process output files to be in a folder call "public".
+output:
+  dir: ./public
+```
+
+[start=3]
+. Create `.gitlab-ci.yml`:
+
+```yml
+image:
+  name: antora/antora
+pages:
+  stage: deploy
+  interruptible: true
+  script:
+  - antora --fetch --redirect-facility=gitlab --to-dir=public antora-playbook.yml
+  artifacts:
+    paths:
+    - public
+```
+
+[start=4]
+. Make sure you have a `package.json` file, then run `npm i` to generate the `package-lock.json`:
+
+```bash
+npm i
+```
+
+[start=5]
+. Use the `.gitlab.pages.yml` listed in the link:https://docs.antora.org/antora/latest/publish-to-gitlab-pages/[Public to Gitlab Pages].

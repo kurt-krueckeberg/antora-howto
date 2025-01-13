@@ -1,0 +1,134 @@
+= Tweaking the Antora Default UI
+
+== Using Supplemental UI
+
+link:https://docs.antora.org/antora/latest/playbook/ui-supplemental-files/[Supplemental UI] allows you
+to overrides parts of the default UI. The Antora link:https://docs.antora.org[documentation] site itself uses
+supplement UI.
+
+**Supplemental UI** is intended to
+
+[quote, Purpose of Supplemental UI]
+____
+make a few minor adjustments or additions to suit a particular environment.
+One such example is a favicon.  Since the favicon is part of the brand
+identity, you may want to use an off-the-shelf UI bundle, but add your
+own favicon to it. You can use the supplemental UI to accomplish this
+goal.
+____
+
+=== Required `antora-playbook.yml` Changes
+
+To use supplemental UI files, you must add the `supplemental_files` key to your `antora-playbook.yml`; for example:
+
+```yml
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+```
+
+=== An Example of Supplemental UI
+
+The Antora link:https://docs.antora.org/antora/latest/playbook/ui-supplemental-files/[Supplemental UI documentation] uses the example of 
+replacing the `head-meta` partial with a custom version. The steps are:
+
+[arabic]
+. First create the a custom version of `head-meta.hbs` at **supplemental-ui/partials/head-meta.hbs**. 
+
++
+
+NOTE: The `supplemental_files` directory is relative to the playbook file because `./supplemental-ui` began with `./`.
+
+. Populate it with HTML and any optional template logic that you want to include:
+
++
+
+[,hbs]
+.Overriding _partials/head-meta.hbs_
+----
+{{#with site.keys.googleSiteVerification}}
+<meta name="google-site-verification" content="{{this}}">
+{{/with}}
+----
+
+=== My Custom Wide Page Style Implementation
+
+Steps:
+
+[arabic]
+. Create *css* subfolder under Antora project root folder and add a custom CSS file
+with this content
+
++
+
+[,css]
+----
+body.wide-site .doc
+{
+  max-width: 80rem;  /* Changing this to 'none' widens the page */
+}
+
+@media screen and (min-width:1024px) {
+    body.wide-site .doc{
+    max-width: 85rem; /* Changing this to 'none' widens the page */
+    }
+}
+----
+. Copy the default Antora UI's (or Bonita UI's) `head-styles.hbs` found in their respective
+UI repos to **supplemental-ui**\--or whatever you named your supplemental files folder
+. Modify it to contain this additional HTML `<link ...>`` statement:
+
++
+
+[,hbs]
+----
+    <link rel="stylesheet" href="{{{uiRootPath}}}/css/wide-site.css">
+----
+.To those `.adoc` pages that you desrie to have wide documentation, add this frontmatter:
+
++
+
+`:page-role: wide-site`
+. Create a bash script to run antora and then copy the `wide-site.css` to the correct
+output folder; for example:
+
++
+
+```bash
+npx antora --fetch local-playbook.yml
+cp css/wide-site.css public/_/css
+```
+
+=== Other Documentaion on Customizing the Antora UI and Creating a Custom UI Bundle
+
+link:https://docs.antora.org/antora/latest/page/page-attributes/[Page Attributes] might be a way
+to alter the default width on only certain pages
+
+== Customizing the UI Repo
+
+You can also create your own Antora UI repo. One way to start, is to clone the https://gitlab.com/antora/antora-ui-default[Antora default UI repo] and
+
+The documentation for the Antora Default UI explains the structure of the Antora default UI. You clone it and examine things like the handlebars-based
+header that uses Agolia search. You can compare other custom Antora UI repos
+
+* link:https://gitlab.com/fedora/docs/docs-website/ui-bundle[Fedora UI Bundle]
+* link:https://github.com/stephengold/antora-ui-bundle[Stephengold UI bundle] used on the link::ttps://docs.rubocop.org/rubocop/index.html[RuboCop documentation]
+  site.
+* https://github.com/anoff/antora-arc42-ui[Antora arc42 UI]
+* https://github.com/aerogear/antora-ui[Aerogear UI Bundle] used on link:https://docs.aerogear.org/aerogear/latest/getting-started.html[Aerogear.org].
+* https://github.com/bonitasoft/bonita-documentation-theme[Bonita Documentation Theme]
+
+== Showcase of Antora-based Site that Customized the Default UI
+
+The list of such sites is link:https://gitlab.com/antora/antora.org/-/issues/20[here].
+
+=== Questions to Answer
+
+See:
+
+- https://docs.antora.org/antora-ui-default/templates/[Work with Handlebar Templates]
+- https://stackoverflow.com/questions/53691002/antora-top-navigation-bar-customization[Antora top naviation bar customization]
+- https://stackoverflow.com/questions/75920869/custom-css-with-supplemental-ui-in-antora-does-not-work[Custom CSS with supplemental-ui in Antora does not work]
+
