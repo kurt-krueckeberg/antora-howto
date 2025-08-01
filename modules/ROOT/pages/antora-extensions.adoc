@@ -12,7 +12,9 @@ The Antora PDF extension uses **Asciidoctor PDF 2** to generate PDF files. This 
 PDF version of you Antora sites' pages.
 
 See link:https://gitlab.com/antora/antora-assembler/-/blob/main/README.adoc[Antora Assembler] for details on
-installing the PDF extension.
+installing the PDF extension. It relies on *asciidoctor-pdf*. The installation instructions for *asciidoctor-pdf*
+are at link:https://docs.asciidoctor.org/pdf-converter/latest/install/[Install Asciidoctor PDF]. It recommends
+using *rvm* to install Ruby and ruby packages.
 
 == Asciidoctor Bibtex
 
